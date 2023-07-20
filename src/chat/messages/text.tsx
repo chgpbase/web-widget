@@ -37,6 +37,23 @@ export default class TextType extends MessageType {
                 ) : (
                     ""
                 )}
+                {attachment && attachment.type === "contact" ? (
+                    <div>
+                        <h3>{attachment.last_name} {attachment.first_name}</h3>
+                        <a href="tel://{attachment.phone_number}">{attachment.phone_number}</a>
+                    </div>
+                ) : (
+                    ""
+                )}
+                {attachment && attachment.type === "location" ? (
+                    <div>
+                        <h3>Location</h3>
+                        <a href="geo:///{attachment.latitude},-{attachment.longitude}">Location</a>
+
+                    </div>
+                ) : (
+                    ""
+                )}
             </div>
         );
     }

@@ -42,6 +42,11 @@ export interface IMessage {
 export interface IAttachment {
     url?: string,
     type?: string,
+    last_name?: string,
+    first_name?: string,
+    phone_number?: string,
+    latitude?: string,
+    longitude?: string,
 }
 
 export interface IElement {
