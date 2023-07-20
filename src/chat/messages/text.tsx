@@ -8,7 +8,13 @@ export default class TextType extends MessageType {
         const attachment = message.attachment;
 
         const textObject = { __html: message.text };
-
+        let uri = "";
+        if (attachment && attachment.type === "location" ) {
+            let uri="geo:"+attachment.latitude+",-"+attachment.longitude;
+        }
+        if (attachment && attachment.type === "contact" ) {
+            let uri="tel:"+attachment.phone_number;
+        }
         return (
             <div>
                 <p dangerouslySetInnerHTML={textObject} />
@@ -40,7 +46,7 @@ export default class TextType extends MessageType {
                 {attachment && attachment.type === "contact" ? (
                     <div>
                         <h3>{attachment.last_name} {attachment.first_name}</h3>
-                        <a href="tel://{attachment.phone_number}">{attachment.phone_number}</a>
+                        <a href={uri}>{attachment.phone_number}</a>
                     </div>
                 ) : (
                     ""
@@ -48,7 +54,7 @@ export default class TextType extends MessageType {
                 {attachment && attachment.type === "location" ? (
                     <div>
                         <h3>Location</h3>
-                        <a href="geo:///{attachment.latitude},-{attachment.longitude}">Location</a>
+                        <a href={uri}>Location</a>
 
                     </div>
                 ) : (
