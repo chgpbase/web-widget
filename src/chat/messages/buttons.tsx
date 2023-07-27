@@ -33,6 +33,7 @@ export default class ButtonsType extends MessageType {
                 text: msg.text,
                 type: msg.type,
                 actions: msg.actions,
+                buttons: msg.buttons,
                 attachment: msg.attachment,
                 additionalParameters: msg.additionalParameters,
                 from: 'chatbot'
