@@ -60,6 +60,13 @@ export default class TextType extends MessageType {
                 ) : (
                     ""
                 )}
+                {attachment && attachment.type === "file" ? (
+                    <div>
+                        <a href={attachment.url}>{attachment.url}</a>
+                    </div>
+                ) : (
+                    ""
+                )}
             </div>
         );
     }

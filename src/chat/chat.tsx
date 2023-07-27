@@ -205,7 +205,7 @@ export default class Chat extends Component<IChatProps, IChatState> {
         const arr = Array.from(files);
         const validImageTypes: Array<string> = ['image/gif', 'image/jpeg', 'image/png'];
         const validVideoTypes: Array<string> = ['video/mp4', 'video/mov', 'video/avi'];
-        const validAudioTypes: Array<string> = ['audio/mp3', 'audio/ogg'];
+        const validAudioTypes: Array<string> = ['audio/mp3', 'audio/ogg', 'audio/wav'];
         let botman=this.botman;
         let writeToMessages = this.writeToMessages;
 
