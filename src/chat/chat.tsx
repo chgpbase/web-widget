@@ -2,13 +2,15 @@ import { h, Component } from "preact";
 import MessageArea from "./message-area";
 import { botman } from "./botman";
 import {IMessage, IConfiguration} from "../typings";
+import axios from 'axios';
 
 export default class Chat extends Component<IChatProps, IChatState> {
 
     [key: string]: any
     botman: any;
     input: HTMLInputElement;
-    textarea: HTMLInputElement;
+    fileinput: HTMLInputElement;
+ //   textarea: HTMLInputElement;
 
     constructor(props: IChatProps) {
         super(props);
@@ -82,22 +84,30 @@ export default class Chat extends Component<IChatProps, IChatState> {
                 </div>
 
                 {this.state.replyType === ReplyType.Text ? (
-                    <input
-                        id="userText"
-                        class="textarea"
-                        type="text"
-                        placeholder={this.props.conf.placeholderText}
-                        ref={input => {
-                            this.input = input as HTMLInputElement;
-                        }}
-                        onKeyPress={this.handleKeyPress}
-                        autofocus
-                    />
-                ) : ''}
-
-                {this.state.replyType === ReplyType.TextArea ? (
-                    <div>
-
+                    <div class="userControl">
+                        <input style="display:none" type="file" id="fileInput" multiple
+                               onChange={this.handleSendAttachments}
+                               ref={input => {
+                                   this.fileinput= input as HTMLInputElement;
+                               }}
+                        />
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             onClick={this.handleAttachmentClick}
+                             id="addAttachments"
+                             viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M12,24c-4.96,0-9-4.04-9-9V6.5C3,2.92,5.92,0,9.5,0s6.5,2.92,6.5,6.5V15c0,2.21-1.79,4-4,4s-4-1.79-4-4V6.5c0-.83,.67-1.5,1.5-1.5s1.5,.67,1.5,1.5V15c0,.55,.45,1,1,1s1-.45,1-1V6.5c0-1.93-1.57-3.5-3.5-3.5s-3.5,1.57-3.5,3.5V15c0,3.31,2.69,6,6,6s6-2.69,6-6V4.5c0-.83,.67-1.5,1.5-1.5s1.5,.67,1.5,1.5V15c0,4.96-4.04,9-9,9Z"/>
+                        </svg>
+                        <input
+                            id="userText"
+                            class="textarea"
+                            type="text"
+                            placeholder={this.props.conf.placeholderText}
+                            ref={input => {
+                                this.input = input as HTMLInputElement;
+                            }}
+                            onKeyPress={this.handleKeyPress}
+                            autofocus
+                        />
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                              onClick={this.handleSendClick}
                              style="cursor: pointer; position: absolute; width: 25px; bottom: 19px; right: 16px; z-index: 1000"
@@ -108,13 +118,40 @@ export default class Chat extends Component<IChatProps, IChatState> {
                                 </g>
                             </g>
                         </svg>
+                    </div>
+                ) : ''}
 
+                {this.state.replyType === ReplyType.TextArea ? (
+                    <div class="userControl">
+                        <input style="display:none" type="file" id="fileInput" multiple
+                               onChange={this.handleSendAttachments}
+                               ref={input => {
+                                   this.fileinput= input as HTMLInputElement;
+                               }}
+                        />
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                             onClick={this.handleSendClick}
+                             style="cursor: pointer; position: absolute; width: 25px; bottom: 19px; right: 16px; z-index: 1000"
+                             viewBox="0 0 535.5 535.5">
+                            <g>
+                                <g id="send">
+                                    <polygon points="0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75"/>
+                                </g>
+                            </g>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             onClick={this.handleAttachmentClick}
+                             id="addAttachments"
+                             viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M12,24c-4.96,0-9-4.04-9-9V6.5C3,2.92,5.92,0,9.5,0s6.5,2.92,6.5,6.5V15c0,2.21-1.79,4-4,4s-4-1.79-4-4V6.5c0-.83,.67-1.5,1.5-1.5s1.5,.67,1.5,1.5V15c0,.55,.45,1,1,1s1-.45,1-1V6.5c0-1.93-1.57-3.5-3.5-3.5s-3.5,1.57-3.5,3.5V15c0,3.31,2.69,6,6,6s6-2.69,6-6V4.5c0-.83,.67-1.5,1.5-1.5s1.5,.67,1.5,1.5V15c0,4.96-4.04,9-9,9Z"/>
+                        </svg>
                         <textarea
                             id="userText"
                             class="textarea"
                             placeholder={this.props.conf.placeholderText}
                             ref={input => {
-                                this.textarea = input as HTMLInputElement;
+                         //       this.textarea = input as HTMLInputElement;
+                                this.input = input as HTMLInputElement;
                             }}
                             autofocus
                         />
@@ -149,11 +186,59 @@ export default class Chat extends Component<IChatProps, IChatState> {
     };
 
     handleSendClick = (e: MouseEvent) => {
-        this.say(this.textarea.value);
+        // this.say(this.textarea.value);
 
         // Reset input value
-        this.textarea.value = "";
+        // this.textarea.value = "";
+        if (this.input.value.replace(/\s/g, "")) {
+            this.say(this.input.value);
+            this.input.value = "";
+        }
     };
+
+    handleAttachmentClick = (e: MouseEvent) =>{
+        this.fileinput.click();
+    };
+    handleSendAttachments = (e: Event) =>{
+        let files = (e.target as HTMLInputElement).files;
+        // @ts-ignore
+        const arr = Array.from(files);
+        const validImageTypes: Array<string> = ['image/gif', 'image/jpeg', 'image/png'];
+        const validVideoTypes: Array<string> = ['video/mp4', 'video/mov', 'video/avi'];
+        const validAudioTypes: Array<string> = ['audio/mp3', 'audio/ogg'];
+        let botman=this.botman;
+        let writeToMessages = this.writeToMessages;
+
+        arr.forEach(function(file: File) {
+            const data = new FormData();
+            data.append("driver", "web");
+            data.append("interactive", '0');
+            data.append("file", file);
+            data.append("filename",  file.name);
+            data.append("userId", botman.userId);
+
+            if (validImageTypes.indexOf(file.type)>-1) {
+                data.append("attachment", 'image');
+            }
+            else if (validVideoTypes.indexOf(file.type)>-1) {
+                data.append("attachment", 'video');
+            }
+            else if (validAudioTypes.indexOf(file.type)>-1) {
+                data.append("attachment", 'audio');
+            } else  data.append("attachment", 'file');
+
+            axios.post(botman.chatServer, data).then(response => {
+                const messages = response.data.messages || [];
+
+                messages.forEach((message : IMessage) => {
+                    writeToMessages(message);
+                });
+
+            });
+        })
+
+        this.fileinput.value=null;
+    }
 
     static generateUuid() {
         let uuid = '', ii;

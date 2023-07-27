@@ -10,10 +10,10 @@ export default class TextType extends MessageType {
         const textObject = { __html: message.text };
         let uri = "";
         if (attachment && attachment.type === "location" ) {
-            let uri="geo:"+attachment.latitude+",-"+attachment.longitude;
+            uri="geo:"+attachment.latitude+",-"+attachment.longitude;
         }
         if (attachment && attachment.type === "contact" ) {
-            let uri="tel:"+attachment.phone_number;
+            uri="tel:"+attachment.phone_number;
         }
         return (
             <div>
