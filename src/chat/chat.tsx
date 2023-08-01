@@ -74,7 +74,7 @@ export default class Chat extends Component<IChatProps, IChatState> {
 
     render({}, state: IChatState) {
         return (
-            <div>
+            <div class="chatContent">
                 <div id="messageArea">
                     <MessageArea
                         messages={state.messages}
@@ -93,7 +93,7 @@ export default class Chat extends Component<IChatProps, IChatState> {
                         />
                         <svg xmlns="http://www.w3.org/2000/svg"
                              onClick={this.handleAttachmentClick}
-                             id="addAttachments"
+                             class="userButton"
                              viewBox="0 0 24 24" width="24" height="24">
                             <path d="M12,24c-4.96,0-9-4.04-9-9V6.5C3,2.92,5.92,0,9.5,0s6.5,2.92,6.5,6.5V15c0,2.21-1.79,4-4,4s-4-1.79-4-4V6.5c0-.83,.67-1.5,1.5-1.5s1.5,.67,1.5,1.5V15c0,.55,.45,1,1,1s1-.45,1-1V6.5c0-1.93-1.57-3.5-3.5-3.5s-3.5,1.57-3.5,3.5V15c0,3.31,2.69,6,6,6s6-2.69,6-6V4.5c0-.83,.67-1.5,1.5-1.5s1.5,.67,1.5,1.5V15c0,4.96-4.04,9-9,9Z"/>
                         </svg>
@@ -110,7 +110,8 @@ export default class Chat extends Component<IChatProps, IChatState> {
                         />
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                              onClick={this.handleSendClick}
-                             style="cursor: pointer; position: absolute; width: 25px; bottom: 19px; right: 16px; z-index: 1000"
+                             class="userButton"
+                             width="24" height="24"
                              viewBox="0 0 535.5 535.5">
                             <g>
                                 <g id="send">
