@@ -25,7 +25,7 @@ export interface IMessageTypeState {
 export interface IMessage {
     id?: string,
     text: string,
-    type: "text" | "list",
+    type: "text" | "list" | "actions" | "buttons",
     timeout?: number,
     from: string,
     time?: string,
@@ -98,6 +98,7 @@ export interface IConfiguration {
      * when the widget is opened for the first time.
      */
     introMessage: string,
+    introActions : IAction[],
     /*
      * Input placeholder text
      */
