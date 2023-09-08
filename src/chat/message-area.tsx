@@ -11,11 +11,11 @@ import MessageHolder from "./message-holder";
 export default class MessageArea extends Component<IMessageAreaProps, any> {
 
     render(props: IMessageAreaProps, {}) {
-    	const styleChat = 'height:'+(props.conf.wrapperHeight-60)+'px;';
+    	// const styleChat = 'height:'+(props.conf.wrapperHeight-60)+'px;';
 
 		let calculatedTimeout = 0;
     	return (
-    		<ol class="chat" style={styleChat} >
+    		<ol class="chat">
     			{
     				props.messages.map((message) => {
     					const listElement = <MessageHolder

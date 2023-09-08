@@ -8,6 +8,7 @@ export const defaultConfiguration: IConfiguration = {
     title: 'Experian Help',
     cookieValidInDays: 1,
     introMessage: '',
+    introActions: [],
     placeholderText: 'Send a message...',
     displayMessageTime: true,
     sendWidgetOpenedEvent: false,
