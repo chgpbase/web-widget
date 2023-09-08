@@ -34,7 +34,7 @@ export default class ChatTitleMsg extends Component<any, any> {
 }
 
 interface IChatTitleMsgProps {
-    conf: { 
+    conf: {
         bubbleAvatarUrl: string,
         bubbleBackground: string
     }

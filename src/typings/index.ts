@@ -137,5 +137,9 @@ export interface IConfiguration {
 
     echoEventName: string,
 
+    onLoad: boolean,
+    position: string,
+    marginVertical: string,
+    marginHorizontal: string,
     init?: Function
 }

@@ -79,11 +79,20 @@ export default class Widget extends Component<any, IWidgetState> {
         } else {
             wrapperStyle = mobileOpenWrapperStyle; // open mobile wrapper should have no border
         }
-
+        let position;
+        if(conf.position=="tr") {
+            position={ top: conf.marginVertical, right: conf.marginHorizontal }
+        } else if (conf.position=="tl") {
+            position={ top: conf.marginVertical, left: conf.marginHorizontal }
+        } else if (conf.position=="br") {
+            position={ bottom: conf.marginVertical, right: conf.marginHorizontal }
+        } else {
+            position={ bottom: conf.marginVertical, left: conf.marginHorizontal }
+        }
 
         return (
 
-            <div style={wrapperStyle}>
+            <div style={{...wrapperStyle, ...position}}>
 
                 {/* Open/close button */}
                 {(isMobile || conf.alwaysUseFloatingButton) && !isChatOpen ?
