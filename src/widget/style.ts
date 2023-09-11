@@ -1,8 +1,8 @@
 
 export const desktopWrapperStyle = {
     position: 'fixed',
-    bottom: '20px',
-    right: '20px',
+    // bottom: '20px',
+    // right: '20px',
     zIndex: 2147483647,
     borderRadius: '5px',
     boxSizing: 'content-box',
@@ -100,8 +100,8 @@ export const desktopClosedMessageAvatarStyle = {
     display: 'flex',
     justifyContent: 'center',
     // position: 'absolute',
-    // top: '38px',
-    // right: '20px',
+    top: '38px',
+    right: '20px',
     height: '60px',
     width: '60px',
     border: 0,
@@ -112,8 +112,8 @@ export const desktopClosedMessageAvatarStyle = {
 export const mobileClosedMessageAvatarStyle = {
     display: 'block',
     // position: 'absolute',
-    // top: '46px',
-    // right: '20px',
+    top: '46px',
+    right: '20px',
     height: '52px',
     width: '52px',
     border: 0,

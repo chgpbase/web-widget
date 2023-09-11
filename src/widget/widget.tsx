@@ -71,23 +71,24 @@ export default class Widget extends Component<any, IWidgetState> {
         } else if (!isMobile){
             wrapperStyle = (isChatOpen || this.state.wasChatOpened) ?
                 (isChatOpen) ?
-                    { ...desktopWrapperStyle, ...wrapperWidth} // desktop mode, button style
+                    {...desktopWrapperStyle, ...wrapperWidth} // desktop mode, button style
                     :
-                    { ...desktopClosedWrapperStyleChat}
+                    {...desktopClosedWrapperStyleChat}
                 :
-                { ...desktopClosedWrapperStyleChat}; // desktop mode, chat style
+                {...desktopClosedWrapperStyleChat}; // desktop mode, chat style
         } else {
             wrapperStyle = mobileOpenWrapperStyle; // open mobile wrapper should have no border
         }
+
         let position;
-        if(conf.position=="tr") {
-            position={ top: conf.marginVertical, right: conf.marginHorizontal }
-        } else if (conf.position=="tl") {
-            position={ top: conf.marginVertical, left: conf.marginHorizontal }
-        } else if (conf.position=="br") {
-            position={ bottom: conf.marginVertical, right: conf.marginHorizontal }
+        if (conf.position == 'tr') {
+            position = {right: conf.marginHorizontal, top: conf.marginVertical};
+        } else if (conf.position == 'tl') {
+            position = {left: conf.marginHorizontal, top: conf.marginVertical};
+        } else if (conf.position == 'br') {
+            position = {right: conf.marginHorizontal, bottom: conf.marginVertical};
         } else {
-            position={ bottom: conf.marginVertical, left: conf.marginHorizontal }
+            position = {left: conf.marginHorizontal, bottom: conf.marginVertical};
         }
 
         return (

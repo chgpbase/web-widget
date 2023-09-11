@@ -32,9 +32,7 @@ export const defaultConfiguration: IConfiguration = {
     echoConfiguration: {},
     echoEventName: '.message.created',
     echoChannelType: 'private',
-    onLoad: true,
     position: 'br',
     marginVertical: '0.8em',
     marginHorizontal: '0.8em'
-
 };

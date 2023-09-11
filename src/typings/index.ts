@@ -137,9 +137,7 @@ export interface IConfiguration {
     echoConfiguration: any,
 
     echoEventName: string,
-
-    onLoad: boolean,
-    position: string,
+    position: "br" | "bl" | "tr" | "tl",
     marginVertical: string,
     marginHorizontal: string,
     init?: Function
