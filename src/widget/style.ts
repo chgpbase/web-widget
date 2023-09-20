@@ -7,7 +7,10 @@ export const desktopWrapperStyle = {
     borderRadius: '5px',
     boxSizing: 'content-box',
     boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.2)',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'nowrap'
 };
 
 export const desktopClosedWrapperStyleChat = {
@@ -19,6 +22,7 @@ export const desktopClosedWrapperStyleChat = {
     boxSizing: 'content-box'
     // overflow: 'hidden',
     // minHeight: '120px'
+
 };
 
 export const mobileClosedWrapperStyle = {
@@ -42,7 +46,10 @@ export const mobileOpenWrapperStyle = {
     width: '100%',
     height: '100%',
     overflowY: 'visible',
-    boxSizing: 'content-box'
+    boxSizing: 'content-box',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'nowrap'
 };
 
 export const desktopTitleStyle = {
@@ -110,12 +117,13 @@ export const desktopClosedMessageAvatarStyle = {
 };
 
 export const mobileClosedMessageAvatarStyle = {
-    display: 'block',
+    display: 'flex',
+    justifyContent: 'center',
     // position: 'absolute',
-    top: '46px',
+    top: '38px',
     right: '20px',
-    height: '52px',
-    width: '52px',
+    height: '60px',
+    width: '60px',
     border: 0,
     borderRadius: '50%',
     boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.2)'

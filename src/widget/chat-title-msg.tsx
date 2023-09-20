@@ -1,11 +1,22 @@
 import { h, Component } from 'preact';
 import {desktopClosedMessageStyle, desktopIntroMessageStyle, desktopClosedMessageAvatarStyle, closedChatAvatarImageStyle} from './style';
+import {IConfiguration} from "../typings";
 
 export default class ChatTitleMsg extends Component<any, any> {
 
     render({conf}: IChatTitleMsgProps,{}) {
+        let position;
+        if (conf.position == 'tr') {
+            position = {right: conf.marginHorizontal, top: conf.marginVertical};
+        } else if (conf.position == 'tl') {
+            position = {left: conf.marginHorizontal, top: conf.marginVertical};
+        } else if (conf.position == 'br') {
+            position = {right: conf.marginHorizontal, bottom: conf.marginVertical};
+        } else {
+            position = {left: conf.marginHorizontal, bottom: conf.marginVertical};
+        }
         return (
-            <div style={{position: 'relative', cursor: 'pointer'}} onClick={this.props.onClick}>
+            <div style={{position: 'fixed', cursor: 'pointer', ...position}} onClick={this.props.onClick}>
                 <div
                     className="desktop-closed-message-avatar"
                     style={{
@@ -34,8 +45,5 @@ export default class ChatTitleMsg extends Component<any, any> {
 }
 
 interface IChatTitleMsgProps {
-    conf: {
-        bubbleAvatarUrl: string,
-        bubbleBackground: string
-    }
+    conf: IConfiguration
 }
