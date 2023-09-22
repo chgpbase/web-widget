@@ -25,13 +25,20 @@ export default class Chat extends Component<IChatProps, IChatState> {
     }
 
     componentDidMount() {
-        if (!this.state.messages.length && this.props.conf.introMessage) {
-                this.writeToMessages({
+        if (!this.state.messages.length && (this.props.conf.introMessage || this.props.conf.introActions)) {
+               if(this.props.conf.introMessage) this.writeToMessages({
                     text: this.props.conf.introMessage,
-                    type: this.props.conf.introActions?"actions":"text",
+                    // type: this.props.conf.introActions?"actions":"text",
+                    type:"text",
                     from: "chatbot",
                     actions: this.props.conf.introActions
                 });
+               if(this.props.conf.introActions) this.writeToMessages({
+                   text: "",
+                   type: "actions",
+                   from: "actions",
+                   actions: this.props.conf.introActions
+               });
         }
         // Add event listener for widget API
         window.addEventListener("message", (event: MessageEvent) => {
@@ -270,7 +277,6 @@ export default class Chat extends Component<IChatProps, IChatState> {
     }
 
 	writeToMessages = (msg: IMessage) => {
-        console.log(msg);
         if (typeof msg.time === "undefined") {
             msg.time = new Date().toJSON();
         }

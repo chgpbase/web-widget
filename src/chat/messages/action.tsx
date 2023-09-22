@@ -9,7 +9,10 @@ export default class Action extends MessageType {
         const message = props.message;
 
         const buttons = message.actions.map((action: IAction) => {
-            return <div class="btn" onClick={() => this.performAction(action)}>
+            let styles={};
+            if (message.from==='actions') styles={borderColor: this.props.conf.mainColor, background: '#fff', color:'#000' };
+            else styles={background: this.props.conf.mainColor};
+            return <div class="btn" style={styles} onClick={() => this.performAction(action)}>
                 {action.text}
             </div>;
         });

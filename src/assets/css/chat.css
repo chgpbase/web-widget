@@ -56,6 +56,39 @@ html, body {
     border-top-right-radius: 2px;
 }
 
+.actions {
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    -webkit-box-align: end;
+    -webkit-align-items: flex-end;
+    -ms-flex-align: end;
+    -ms-grid-row-align: flex-end;
+    align-items: flex-end;
+}
+
+.actions .msg {
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+    border: none;
+    background: none;
+}
+
+.actions .btn {
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+    border-radius: 26px;
+    padding: 12px;
+    border-width: 2px;
+    border: solid;
+}
+
+
 .chatbot .msg {
     -webkit-box-ordinal-group: 2;
     -webkit-order: 1;

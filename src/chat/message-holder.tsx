@@ -65,7 +65,7 @@ export default class MessageHolder extends Component<IMessageHolderProps, any> {
                                       messageHandler={messageHandler}
                                       conf={conf}
                     />
-                    {(props.conf.displayMessageTime) ?
+                    {(props.conf.displayMessageTime) && message.from!="actions" ?
                         <div class="time">
                             {
                                 currentTime.getMilliseconds() - msgTime.getMilliseconds() < dayInMillis ?
