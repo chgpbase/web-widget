@@ -14,6 +14,7 @@ export interface IMessageHolderProps {
     calculatedTimeout: number,
     messageHandler: Function,
     conf?: IConfiguration,
+    scrollBottom: boolean
 }
 
 export interface IMessageTypeState {

@@ -20,6 +20,7 @@ export default class MessageArea extends Component<IMessageAreaProps, any> {
     				props.messages.map((message) => {
     					const listElement = <MessageHolder
 							message={message}
+                            scrollBottom={props.scrollBottom}
 							calculatedTimeout={calculatedTimeout}
 							messageHandler={props.messageHandler}
 							conf={props.conf}
@@ -40,4 +41,5 @@ interface IMessageAreaProps {
 	conf: IConfiguration,
 	messages: IMessage[],
 	messageHandler: Function,
+    scrollBottom: boolean
 };

@@ -79,13 +79,31 @@ export default class Chat extends Component<IChatProps, IChatState> {
     whisper(text: string) {
         this.say(text, false);
     }
+    wheel = (event:any) => {
+        if(event.deltaY<0)  this.gethistory();
+    }
+    scrollcapture = (event:any) => {
+        if(event.target.scrollTop===0) {
+            this.gethistory();
+        }
+    }
 
+    gethistory(){
+        this.writeToMessages(
+            {
+                text:"111111111111111111",
+                type: "text",
+                from: "chatbot",
+                visible: true
+            }, true  );
+    }
     render({}, state: IChatState) {
         return (
-            <div class="chatContent">
-                <div id="messageArea">
+            <div class="chatContent" >
+                <div id="messageArea" onWheel={this.wheel} onScrollCapture={this.scrollcapture}>
                     <MessageArea
                         messages={state.messages}
+                        scrollBottom={state.scrollBottom}
                         conf={this.props.conf}
                         messageHandler={this.writeToMessages}
                     />
@@ -276,7 +294,7 @@ export default class Chat extends Component<IChatProps, IChatState> {
         return uuid;
     }
 
-	writeToMessages = (msg: IMessage) => {
+	writeToMessages = (msg: IMessage, first = false) => {
         if (typeof msg.time === "undefined") {
             msg.time = new Date().toJSON();
         }
@@ -294,9 +312,10 @@ export default class Chat extends Component<IChatProps, IChatState> {
 	        msg.attachment = {}; // TODO: This renders IAttachment useless
 	    }
 
-	    this.state.messages.push(msg);
+        if(first) this.state.messages.unshift(msg); else this.state.messages.push(msg);
 	    this.setState({
-	        messages: this.state.messages
+	        messages: this.state.messages,
+            scrollBottom: !first
 	    });
 
 	    if (msg.additionalParameters && msg.additionalParameters.replyType) {
@@ -320,6 +339,7 @@ enum ReplyType {
 
 interface IChatState {
     messages: IMessage[],
+    scrollBottom: boolean,
 
-    replyType: string,
+    replyType: string
 }

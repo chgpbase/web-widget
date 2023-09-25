@@ -26,11 +26,11 @@ export default class MessageHolder extends Component<IMessageHolderProps, any> {
     };
 
     componentDidMount() {
-        this.scrollToBottom();
+        if (this.props.scrollBottom) this.scrollToBottom();
     }
 
     componentDidUpdate() {
-        this.scrollToBottom();
+        if (this.props.scrollBottom) this.scrollToBottom();
     }
 
     messageVisibilityChange = (message: IMessage, messageState: IMessageTypeState) => {
