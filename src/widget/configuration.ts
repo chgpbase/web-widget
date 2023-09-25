@@ -30,8 +30,8 @@ export const defaultConfiguration: IConfiguration = {
     useEcho: false,
     echoChannel: (userId: string) => '',
     echoConfiguration: {},
-    echoEventName: '.message.created',
-    echoChannelType: 'private',
+    echoEventName: '.chat_message',
+    echoChannelType: 'channel',
     position: 'br',
     marginVertical: '0.8em',
     marginHorizontal: '0.8em'

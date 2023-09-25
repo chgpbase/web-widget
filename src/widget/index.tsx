@@ -21,7 +21,24 @@ function getUserId(conf: IConfiguration) {
 }
 
 function generateRandomId() {
-    return Math.random().toString(36).substr(2, 6);
+    let name = "cid=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    let userId="";
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    const d = new Date();
+    d.setTime(d.getTime() + (18250*24*60*60*1000));
+    userId=Math.random().toString(36).substr(2)+Math.random().toString(36).substr(2);
+    document.cookie = "cid=" + userId + ";expires=" + + d.toUTCString() + ";path=/";
+    return userId;
 }
 
 function injectChat() {
@@ -39,7 +56,7 @@ function injectChat() {
     dynamicConf.userId = getUserId({...defaultConfiguration, ...dynamicConf});
 
     if (typeof dynamicConf.echoChannel === 'function') {
-        dynamicConf.echoChannel = dynamicConf.echoChannel(dynamicConf.userId);
+        dynamicConf.echoChannel = dynamicConf.echoChannel('chat_'+dynamicConf.userId);
     }
 
     const conf = {...defaultConfiguration, ...settings, ...dynamicConf};
@@ -48,7 +65,7 @@ function injectChat() {
 
     render(
         <Widget
-            isMobile={window.screen.width < 500}
+            isMobile={(window.screen.width < 500)||(window.screen.height < 500) }
             iFrameSrc={iFrameSrc}
             conf={conf}
         />,
