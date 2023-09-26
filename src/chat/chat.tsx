@@ -80,22 +80,30 @@ export default class Chat extends Component<IChatProps, IChatState> {
         this.say(text, false);
     }
     wheel = (event:any) => {
-        if(event.deltaY<0)  this.gethistory();
+        // if(event.deltaY<0)  this.gethistory();
+        if(event.deltaY<0)   this.gethistory();
     }
     scrollcapture = (event:any) => {
-        if(event.target.scrollTop===0) {
-            this.gethistory();
-        }
+        if(event.target.scrollTop===0)  this.gethistory();
     }
 
+    timer:any = null;
     gethistory(){
-        this.writeToMessages(
-            {
-                text:"111111111111111111",
-                type: "text",
-                from: "chatbot",
-                visible: true
-            }, true  );
+        if (this.timer) return;
+        this.timer = setTimeout(() => {
+            let data = new FormData();
+            data.append('driver', 'web');
+            data.append('eventName', 'userHistory');
+            data.append('eventData', this.props.userId);
+            axios.post(this.props.conf.chatServer, data).then(response => {
+                const messages = response.data.messages || [];
+                messages.forEach((message : IMessage) => {
+                    this.writeToMessages(message, true);
+                });
+            });
+            // clearTimeout(this.timer);
+            this.timer=null;
+        }, 500);
     }
     render({}, state: IChatState) {
         return (

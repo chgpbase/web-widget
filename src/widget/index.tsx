@@ -54,9 +54,10 @@ function injectChat() {
     const dynamicConf = window.botmanWidget || {} as IConfiguration; // these configuration are loaded when the chat frame is opened
 
     dynamicConf.userId = getUserId({...defaultConfiguration, ...dynamicConf});
-
-    if (typeof dynamicConf.echoChannel === 'function') {
-        dynamicConf.echoChannel = dynamicConf.echoChannel('chat_'+dynamicConf.userId);
+    // if (typeof dynamicConf.echoChannel === 'function') {
+    if (typeof dynamicConf.echoChannel === "undefined") {
+        // dynamicConf.echoChannel = dynamicConf.echoChannel(dynamicConf.userId);
+        dynamicConf.echoChannel = 'chat_'+dynamicConf.userId;
     }
 
     const conf = {...defaultConfiguration, ...settings, ...dynamicConf};
