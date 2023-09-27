@@ -94,7 +94,8 @@ export default class Chat extends Component<IChatProps, IChatState> {
             let data = new FormData();
             data.append('driver', 'web');
             data.append('eventName', 'userHistory');
-            data.append('eventData', this.props.userId);
+            data.append('userId', this.props.userId);
+            data.append('eventData', '');
             axios.post(this.props.conf.chatServer, data).then(response => {
                 const messages = response.data.messages || [];
                 messages.forEach((message : IMessage) => {
