@@ -20,7 +20,14 @@ export default class Chat extends Component<IChatProps, IChatState> {
         this.botman.setChatServer(this.props.conf.chatServer);
         //this.state.messages = [];
         //this.state.replyType = ReplyType.Text;
-        this.setState({ messages : [] });
+        let messages: Array<IMessage> = [];
+        let history = localStorage.getItem('chat_history');
+        if(history)
+            try {
+                messages = JSON.parse(localStorage.getItem('chat_history')) ;
+            } catch (e) {
+            }
+        this.setState({ messages : messages });
         this.setState({ replyType : ReplyType.Text });
     }
 
@@ -31,7 +38,6 @@ export default class Chat extends Component<IChatProps, IChatState> {
                     // type: this.props.conf.introActions?"actions":"text",
                     type:"text",
                     from: "chatbot",
-                    actions: this.props.conf.introActions
                 });
                if(this.props.conf.introActions) this.writeToMessages({
                    text: "",
@@ -39,6 +45,10 @@ export default class Chat extends Component<IChatProps, IChatState> {
                    from: "actions",
                    actions: this.props.conf.introActions
                });
+        } else {
+            this.setState({
+                scrollBottom: true
+            });
         }
         // Add event listener for widget API
         window.addEventListener("message", (event: MessageEvent) => {
@@ -71,7 +81,7 @@ export default class Chat extends Component<IChatProps, IChatState> {
             this.writeToMessages(msg);
         });
 
-        if (showMessage) {
+        if (showMessage && !this.props.conf.useEcho) {
             this.writeToMessages(message);
         }
     }
@@ -326,7 +336,7 @@ export default class Chat extends Component<IChatProps, IChatState> {
 	        messages: this.state.messages,
             scrollBottom: !first
 	    });
-
+        localStorage.setItem('chat_history', JSON.stringify(this.state.messages));
 	    if (msg.additionalParameters && msg.additionalParameters.replyType) {
 	        this.setState({
                 replyType: msg.additionalParameters.replyType
