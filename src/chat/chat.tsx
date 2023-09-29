@@ -313,7 +313,40 @@ export default class Chat extends Component<IChatProps, IChatState> {
         return uuid;
     }
 
-	writeToMessages = (msg: IMessage, first = false) => {
+    writeToManyMessages = (messages: Array<IMessage>) => {
+        messages.forEach((msg : IMessage) => {
+            if (typeof msg.time === "undefined") {
+                msg.time = new Date().toJSON();
+            }
+            if (typeof msg.visible === "undefined") {
+                msg.visible = false;
+            }
+            if (typeof msg.timeout === "undefined") {
+                msg.timeout = 0;
+            }
+            if (typeof msg.id === "undefined") {
+                msg.id = Chat.generateUuid();
+            }
+
+            if (msg.attachment === null) {
+                msg.attachment = {}; // TODO: This renders IAttachment useless
+            }
+
+            this.state.messages.push(msg);
+        });
+
+        this.setState({
+            messages: this.state.messages,
+            scrollBottom: true
+        });
+        localStorage.setItem('chat_history', JSON.stringify(this.state.messages));
+        // if (msg.additionalParameters && msg.additionalParameters.replyType) {
+        //     this.setState({
+        //         replyType: msg.additionalParameters.replyType
+        //     });
+        // }
+    }
+	writeToMessages = (msg: IMessage, first = false, state=true) => {
         if (typeof msg.time === "undefined") {
             msg.time = new Date().toJSON();
         }

@@ -53,6 +53,14 @@ export default class Widget extends Component<any, IWidgetState> {
             channel.listen(this.props.conf.echoEventName, (message: IMessage) => {
                 window.botmanChatWidget.writeToMessages(message);
             });
+
+            channel.listen('.chat_unread', (data:Array<IMessage>) => {
+                const messages = data || [];
+
+                messages.forEach((message : IMessage) => {
+                    window.botmanChatWidget.writeToMessages(message);
+                });
+            });
         }
     }
 

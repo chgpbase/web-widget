@@ -49,6 +49,15 @@ export default class Api {
         })
     }
 
+    writeToManyMessages(messages: Array<IMessage>) {
+        this.callChatWidget({
+            method: 'writeToManyMessages',
+            params: [
+                messages
+            ]
+        })
+    }
+
     sayAsBot(text: string) {
         this.callChatWidget({
             method: 'sayAsBot',

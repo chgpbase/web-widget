@@ -28,7 +28,6 @@ export default class ButtonsType extends MessageType {
 
     performAction(button: IButton) {
         botman.callAPI(button.payload, true, null, (msg: IMessage) => {
-            this.setState({ attachmentsVisible : false});
             this.props.messageHandler({
                 text: msg.text,
                 type: msg.type,
@@ -38,6 +37,8 @@ export default class ButtonsType extends MessageType {
                 additionalParameters: msg.additionalParameters,
                 from: 'chatbot'
             });
-        }, null);
+        }, ()=>{
+            this.setState({ attachmentsVisible : false});
+        });
     }
 }
