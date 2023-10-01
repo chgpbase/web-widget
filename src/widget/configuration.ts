@@ -4,7 +4,7 @@ export const defaultConfiguration: IConfiguration = {
     chatServer: '/botman',
     frameEndpoint: '/botman/chat',
     timeFormat: 'HH:MM',
-    dateTimeFormat: 'm/d/yy HH:MM',
+    dateTimeFormat: 'dd.mm.yy HH:MM',
     title: 'Experian Help',
     cookieValidInDays: 1,
     introMessage: '',
