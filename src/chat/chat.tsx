@@ -149,9 +149,9 @@ export default class Chat extends Component<IChatProps, IChatState> {
                             placeholder={this.props.conf.placeholderText}
                             ref={input => {
                                 this.input = input as HTMLInputElement;
+                                if(input) input.focus();
                             }}
                             onKeyPress={this.handleKeyPress}
-                            autofocus
                         />
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                              onClick={this.handleSendClick}
@@ -189,9 +189,9 @@ export default class Chat extends Component<IChatProps, IChatState> {
                             placeholder={this.props.conf.placeholderText}
                             ref={input => {
                                 this.input = input as HTMLInputElement;
+                                if(input) input.focus();
                             }}
                             onKeyPress={this.handleKeyPress}
-                            autofocus
                         />
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                              onClick={this.handleSendClick}
@@ -313,6 +313,9 @@ export default class Chat extends Component<IChatProps, IChatState> {
         return uuid;
     }
 
+    chatOpen = () =>{
+        if(this.input) this.input.focus();
+    }
     writeToManyMessages = (messages: Array<IMessage>) => {
         messages.forEach((msg : IMessage) => {
             if (typeof msg.time === "undefined") {
@@ -346,6 +349,8 @@ export default class Chat extends Component<IChatProps, IChatState> {
         //     });
         // }
     }
+
+
 	writeToMessages = (msg: IMessage, first = false, state=true) => {
         if (typeof msg.time === "undefined") {
             msg.time = new Date().toJSON();

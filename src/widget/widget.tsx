@@ -56,7 +56,7 @@ export default class Widget extends Component<any, IWidgetState> {
 
             channel.listen('.chat_unread', (data:Array<IMessage>) => {
                 const messages = data || [];
-                window.botmanChatWidget.writeToManyMessages(messages);
+                if(messages.length>0) window.botmanChatWidget.writeToManyMessages(messages);
             });
         }
     }
@@ -147,6 +147,13 @@ export default class Widget extends Component<any, IWidgetState> {
                 }, 500);
             }
             stateData.wasChatOpened = true;
+        }
+        let frame =document.getElementById('chatBotManFrame') as HTMLIFrameElement;
+        if(stateData.isChatOpen && frame) {
+           frame.contentWindow.postMessage({
+                method: 'chatOpen',
+                params: []
+            }, '*');
         }
         this.setState(stateData);
     };
