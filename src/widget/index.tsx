@@ -3,11 +3,11 @@ import Widget from './widget';
 import {defaultConfiguration} from './configuration';
 import {IConfiguration} from "../typings";
 
-if (window.attachEvent) {
-    window.attachEvent('onload', injectChat);
-} else {
-    window.addEventListener('load', injectChat, false);
-}
+// if (window.attachEvent) {
+//     window.attachEvent('onload', injectChat);
+// } else {
+//     window.addEventListener('load', injectChat, false);
+// }
 
 function getUrlParameter(name: string, defaults = '') {
     name = name.replace(/[[]/, '\\[').replace(/[]]/, '\\]');
@@ -78,3 +78,5 @@ function injectChat() {
 declare global {
     interface Window { attachEvent: Function, botmanWidget: IConfiguration }
 }
+
+injectChat();

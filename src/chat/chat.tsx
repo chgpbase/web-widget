@@ -21,10 +21,10 @@ export default class Chat extends Component<IChatProps, IChatState> {
         //this.state.messages = [];
         //this.state.replyType = ReplyType.Text;
         let messages: Array<IMessage> = [];
-        let history = localStorage.getItem('chat_history');
+        let history = localStorage.getItem('chat_history_'+this.props.userId);
         if(history)
             try {
-                messages = JSON.parse(localStorage.getItem('chat_history')) ;
+                messages = JSON.parse(history) ;
             } catch (e) {
             }
         this.setState({ messages : messages });
@@ -342,7 +342,7 @@ export default class Chat extends Component<IChatProps, IChatState> {
             messages: this.state.messages,
             scrollBottom: true
         });
-        localStorage.setItem('chat_history', JSON.stringify(this.state.messages));
+        localStorage.setItem('chat_history_'+this.props.userId, JSON.stringify(this.state.messages));
         // if (msg.additionalParameters && msg.additionalParameters.replyType) {
         //     this.setState({
         //         replyType: msg.additionalParameters.replyType
@@ -374,7 +374,7 @@ export default class Chat extends Component<IChatProps, IChatState> {
 	        messages: this.state.messages,
             scrollBottom: !first
 	    });
-        localStorage.setItem('chat_history', JSON.stringify(this.state.messages));
+        localStorage.setItem('chat_history_'+this.props.userId, JSON.stringify(this.state.messages));
 	    if (msg.additionalParameters && msg.additionalParameters.replyType) {
 	        this.setState({
                 replyType: msg.additionalParameters.replyType

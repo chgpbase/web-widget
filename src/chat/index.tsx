@@ -2,11 +2,11 @@ import { h, render } from 'preact';
 import Chat from './chat';
 import { IConfiguration } from '../typings';
 
-if (window.attachEvent) {
-    window.attachEvent('onload', injectChat);
-} else {
-    window.addEventListener('load', injectChat, false);
-}
+// if (window.attachEvent) {
+//     window.attachEvent('onload', injectChat);
+// } else {
+//     window.addEventListener('load', injectChat, false);
+// }
 
 let conf = {} as IConfiguration;
 
@@ -39,3 +39,5 @@ function getUrlParameter(name: string) {
     let results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
+
+injectChat();

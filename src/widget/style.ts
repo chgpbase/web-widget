@@ -29,6 +29,8 @@ export const mobileClosedWrapperStyle = {
     position: 'fixed',
     // bottom: '0px',
     // right: '0px',
+    // left: '0px',
+    // top: '0px',
     zIndex: 2147483647,
     // minWidth: '400px',
     boxSizing: 'content-box'
@@ -38,10 +40,10 @@ export const mobileClosedWrapperStyle = {
 
 export const mobileOpenWrapperStyle = {
     position: 'fixed',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
+    top: '0px',
+    right: '0px',
+    bottom: '0px',
+    left: '0px',
     zIndex: 2147483647,
     width: '100%',
     height: '100%',

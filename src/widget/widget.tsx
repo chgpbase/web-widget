@@ -95,10 +95,16 @@ export default class Widget extends Component<any, IWidgetState> {
         } else {
             position = {left: conf.marginHorizontal, bottom: conf.marginVertical};
         }
-
+        if (isMobile) {
+            if(isChatOpen) {position={left: 0, top: 0};
+                document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+            } else {
+                document.getElementsByTagName('body')[0].style.overflow = 'auto';
+            }
+        }
         return (
 
-            <div style={{...wrapperStyle, ...position}}>
+            <div style={{...wrapperStyle,  ...position}}>
 
                 {/* Open/close button */}
                 {(isMobile || conf.alwaysUseFloatingButton) && !isChatOpen ?
@@ -109,7 +115,7 @@ export default class Widget extends Component<any, IWidgetState> {
 
                     (isChatOpen || this.state.wasChatOpened) ?
                         (isChatOpen ?
-                            <div style={{background: conf.mainColor, ...desktopTitleStyle}} onClick={this.toggle}>
+                            <div style={{background: conf.mainColor, ...desktopTitleStyle, ...position}} onClick={this.toggle}>
                                 <div style={{
                                     display: 'flex', alignItems: 'center', padding: '0px 30px 0px 0px',
                                     fontSize: '15px', fontWeight: 'normal', color: conf.headerTextColor
